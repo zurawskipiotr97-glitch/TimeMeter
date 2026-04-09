@@ -1,52 +1,64 @@
 <!DOCTYPE html>
 <html lang="pl">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Relfeksomierzacz</title>
+    <title>Relfeksomierzacz</title>
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Relfeksomierzacz">
 
-        <link rel="icon" href="./favicon.ico" sizes="any">
-        <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
-        <link rel="manifest" href="./site.webmanifest">
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="manifest" href="./site.webmanifest">
 
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js" defer></script>
-    </head>
-    <main>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
 
-    
-        <header>
-            <img src="android-chrome-512x512.png" id="logo" alt="Ikona strony">
+    <header class="section header">
+        <div class="container header-inner">
+            <img src="./android-chrome-512x512.png" id="logo" alt="Ikona strony">
             <h1>Relfeksomierzacz</h1>
-        </header>
-        <body>
+        </div>
+    </header>
 
-            <div id="settings" style="display: true;">
+    <main class="section main">
+        <div class="container main-inner">
+
+            <section class="panel" id="settings">
+                <h2>Ustawienia gry</h2>
+
                 <p>
                     <label for="tryLimit">Limit prób:</label>
-                    <input type="number" id="tryLimit" value="5">
+                    <input type="number" id="tryLimit" value="5" min="1">
                 </p>
-                <button id="startButton" type="button" onclick="StartGame()">Start</button>
-            </div>
 
-            <div id="game" style="display: true;">
+                <button id="startButton" type="button" onclick="StartGame()">Start</button>
+            </section>
+
+            <section class="panel" id="game">
+                <h2>Gra</h2>
+
                 <p id="message">Good Luck!</p>
-                <p id="tries">Pozostałe próby: ????</p> 
+                <p id="tries">Pozostałe próby: ????</p>
 
                 <div class="square" id="square1"></div>
 
+                <button id="stopButton" type="button" onclick="StopGame()">Stop</button>
+            </section>
 
-
-            
-            <button id="stopButton" type="button" onclick="StopGame()">Stop</button>
-            </div>
-
-        </body>
-        <footer>
-            
-        </footer>
+        </div>
     </main>
+
+    <footer class="section footer">
+        <div class="container footer-inner">
+            <p>&copy; 2026 Relfeksomierzacz</p>
+        </div>
+    </footer>
+
+</body>
 </html>
