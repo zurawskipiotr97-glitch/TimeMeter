@@ -11,7 +11,7 @@ body {
 .container {
     max-width: auto;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 10px 20px;
 }
 
 .header {
@@ -64,8 +64,8 @@ div {
 }
 
 .square {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     background-color: #4CAF50;
     margin: 20px auto;
     border-radius: 10px;
@@ -82,3 +82,20 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
+
+#reactionButton {
+    background-color: red;
+    padding: 20px 40px;
+    font-size: 2em;
+}
+
+.description p {  
+    color: black;
+    margin-top: 10px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-align: justify;
+    hyphens: auto;
+}
+
+

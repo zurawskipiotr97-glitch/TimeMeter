@@ -29,6 +29,14 @@
     <main class="section main">
         <div class="container main-inner">
 
+            <section class="description" id="description">
+                <h2>Opis gry</h2>
+                <p>
+                    Celem gry jest jak najszybsze kliknięcie przycisku "Zmiana" po zmianie koloru kwadratu. 
+                    Gracz ma określoną liczbę prób, aby osiągnąć jak najlepszy czas reakcji.
+                </p>
+            </section>
+
             <section class="panel" id="settings">
                 <h2>Ustawienia gry</h2>
 
@@ -47,6 +55,7 @@
                 <p id="tries">Pozostałe próby: ????</p>
 
                 <div class="square" id="square1"></div>
+                <button id="reactionButton" type="button" onclick="Reaction()">Zmiana</button>
 
                 <button id="stopButton" type="button" onclick="StopGame()">Stop</button>
             </section>
