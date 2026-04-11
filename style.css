@@ -64,8 +64,9 @@ div {
 }
 
 .square {
-    width: 70%;
-    height: 12rem;
+    max-width: 40%;
+    min-width: 200px;
+    height: 200px;
     background-color: #4CAF50;
     margin: 20px auto;
     border-radius: 10px;
@@ -113,6 +114,10 @@ ul {
   margin: 0;
 }
 
+.description-content p {
+    font-size: 1.2em;
+}
+
 #cliccker {
     display: block;
     margin: 20px auto;
@@ -123,5 +128,40 @@ ul {
     border: none;
     border-radius:10px;
     cursor: pointer;
+}
 
+#settings {
+    display: block;
+}
+
+#gameBox {
+    display: block;
+}
+
+#gameKeyboard {
+    display:none;
+}
+
+#results {
+    display:none;
+}
+
+#startButton {
+    display:block;
+}
+
+#stopButton {
+    display:none;
+}
+
+summary {
+    list-style: none;
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+summary:hover {
+    background: #e0e0e0;
 }
