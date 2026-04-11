@@ -114,6 +114,10 @@ ul {
   margin: 0;
 }
 
+.description-content p {
+    font-size: 1.2em;
+}
+
 #cliccker {
     display: block;
     margin: 20px auto;
@@ -124,7 +128,6 @@ ul {
     border: none;
     border-radius:10px;
     cursor: pointer;
-
 }
 
 #settings {
@@ -132,7 +135,7 @@ ul {
 }
 
 #gameBox {
-    display: none;
+    display: block;
 }
 
 #gameKeyboard {
@@ -141,4 +144,16 @@ ul {
 
 #results {
     display:none;
+}
+
+summary {
+    list-style: none;
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+summary:hover {
+    background: #e0e0e0;
 }

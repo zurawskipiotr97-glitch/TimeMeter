@@ -1,9 +1,10 @@
 const gameState = {
     isRunning: false,
     currentScreens: ['settings'],
-    gameMode: 'normal',
-    limit: 0,
-    trysToGo: 0,
+    resultsOnScreen: false,
+    gameMode: null,
+    limit: 5,
+    trysToGo: 5,
     missedClicksBeforeChange: 0,
     actualBestScore: null,
     actualWorstScore: null,
@@ -35,7 +36,7 @@ function startGame() {
 }
 
 function renderUI() {
-    const sections = ['settings', 'gameBox', 'gameKeyboard', 'results'];
+    const sections = ['settings', 'gameBox', 'gameKeyboard'];
 
     sections.forEach(id => {
         const el = document.getElementById(id);
@@ -47,15 +48,31 @@ function renderUI() {
             }
         }
     });
+
+    if (gameState.resultsOnScreen) {
+        const res = document.getElementById(results)
+        res.style.display = 'block';
+    }
 }
 
 function stopGame() {
     gameState.isRunning = false;
-    gameState.currentScreens = ['settings', 'results']
+    gameState.currentScreens = ['settings', gameState.gameMode, 'results']
     renderUI();
 }
 
 function getTrysToGo() {
     return gameState.trysToGo;
 }
- 
+
+function click() {
+    const backgroundBox = document.getElementById(cliccker);
+    backgroundBox.style.backgroundColor = 'red'
+}
+
+function switchMode() {
+    const selectedMode = document.getElementById('gameMode').value;
+    gameState.gameMode = selectedMode
+    gameState.currentScreens = ['settings', selectedMode, 'results'];
+    renderUI();
+}
