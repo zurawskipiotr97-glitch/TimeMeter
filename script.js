@@ -331,7 +331,10 @@ function stopGame() {
 
     document.getElementById('startButton').classList.remove('hidden');
     document.getElementById('stopButton').classList.add('hidden');
-    document.getElementById('settings').classList.remove('hidden');
+    const element = document.getElementById('settings');
+    const detailsElement = element.querySelector('details');
+    detailsElement.open = false;
+    element.classList.remove('hidden');
 
     document.getElementById('countdownOverlay').classList.add('hidden');
 
