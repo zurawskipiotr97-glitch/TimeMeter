@@ -100,13 +100,15 @@ button {
     hyphens: auto;
 }
 
-.square p {
+.square div {
     display: inline-block;
+    width: 100px;
+    height: 100px;
     background-color: white;
     font-size: 3em;
     text-align: center;
     justify-content: center;
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     margin: 0px;
     border-radius: 10px;
 }
