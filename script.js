@@ -153,6 +153,7 @@ function stopGame() {
     gameState.countdownId = null;
 
     document.getElementById('countdownOverlay').classList.add('hidden');
+    document.getElementById('settings').classList.remove('hidden');
 }
 }
 
