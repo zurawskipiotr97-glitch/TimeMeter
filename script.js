@@ -35,17 +35,20 @@ function switchMode() {
     const selectedMode = document.getElementById('gameMode').value;
     gameState.gameMode = selectedMode;
 
-    const modes = ['gameBox', 'gameKeyboard'];
+    const gameBox = document.getElementById('gameBox');
+    const gameKeyboard = document.getElementById('gameKeyboard');
+    const title = document.getElementById('modeTitle');
 
-    modes.forEach(id => {
-        const el = document.getElementById(id);
+    const isBox = selectedMode === 'gameBox';
 
-        if (id === selectedMode) {
-            el.classList.remove('hidden');
-        } else {
-            el.classList.add('hidden');
-        }
-    });
+    // przełączanie widoku
+    gameBox.classList.toggle('hidden', !isBox);
+    gameKeyboard.classList.toggle('hidden', isBox);
+
+    // zmiana nagłówka
+    title.innerText = isBox
+        ? 'Mode: Box clicking'
+        : 'Mode: Keyboard';
 }
 
 
