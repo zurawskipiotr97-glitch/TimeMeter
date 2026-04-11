@@ -11,6 +11,7 @@ const gameState = {
 
     missedClicksBeforeChange: 0,
     missedClicksTotal: 0,
+    wrongClicks: 0,
 
     actualGameTimeResults: [],
     actualBestScore: null,
@@ -73,6 +74,8 @@ function switchMode() {
     document.getElementById('modeTitle').innerText =
         isBox ? 'Mode: Box clicking' : 'Mode: Keyboard';
     
+    document.getElementById('wrongTries').classList.toggle('hidden', isBox);
+    
     updateLimit();
 }
 
@@ -88,6 +91,7 @@ function startGame() {
 
     gameState.missedClicksBeforeChange = 0;
     gameState.missedClicksTotal = 0;
+    gameState.wrongClicks = 0;
 
     gameState.actualGameTimeResults = [];
     gameState.actualBestScore = null;
@@ -97,6 +101,8 @@ function startGame() {
     document.getElementById('toGo').innerText = limit;
     document.getElementById('missedBefore').innerText = 0;
     document.getElementById('missedTotal').innerText = 0;
+    document.getElementById('wrongKey').innerText = 0;
+    document.getElementById('keyValue').innerText = '-';
 
     document.getElementById('startButton').classList.add('hidden');
     document.getElementById('stopButton').classList.remove('hidden');
@@ -159,8 +165,8 @@ function showSignal() {
         document.getElementById('keyValue').innerText = gameState.keyValue;
     }
 
-    document.getElementById('toGo').innerText = gameState.trysToGo;
     gameState.trysToGo--;
+    document.getElementById('toGo').innerText = gameState.trysToGo;
     gameState.timeoutId = Date.now(); 
 }
 
@@ -173,8 +179,16 @@ function handleBoxClick() {
 
 document.addEventListener('keydown', (e) => {
     if (!gameState.isRunning || gameState.gameMode !== 'gameKeyboard') return;
-    if (e.key.toLowerCase() === gameState.keyValue.toLowerCase()) {
+    if (gameState.phase === 'waiting') {
         handleReaction();
+    };
+    if (e.key.toLowerCase() === gameState.keyValue.toLowerCase() && gameState.phase === 'ready') {
+        handleReaction();
+    } else if (gameState.phase === 'ready') {
+        gameState.wrongClicks++;
+        gameState.missedClicksTotal++;
+        document.getElementById('wrongKey').innerText = gameState.wrongClicks;
+        document.getElementById('missedTotal').innerText = gameState.missedClicksTotal;
     }
 });
 
