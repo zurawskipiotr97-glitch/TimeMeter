@@ -2,9 +2,12 @@ const gameState = {
     isRunning: false,
     gameMode: null,
     limit: 5,
-
     trysToGo: 5,
+
+    phase: 'idle', //'idle' | 'countdown' | 'waiting' | 'ready' | 'finished'
+    timeoutId: null,
     missedClicksBeforeChange: 0,
+    missedClicksTotal: 0,
     actualGameTimeResults: [],
     actualBestScore: null,
     actualWorstScore: null,
@@ -17,18 +20,28 @@ const gameState = {
     
 }
 
+//SETTINGS
 function updateLimit() {
     const tryLimitInput = document.getElementById('tryLimit');
 
     const value = parseInt(tryLimitInput.value);
-    
-    gameState.limit = isNaN(value) ? 0 : value;
-    gameState.trysToGo = gameState.limit;
+    const fixedValue = Math.max(1, value || 0);
+    gameState.limit = fixedValue;
+    gameState.trysToGo = fixedValue;
 
-    const scoreElement = document.getElementById('toGo');
-    if (scoreElement) {
-        scoreElement.innerText = gameState.trysToGo;
-    }
+    document.getElementById('toGo').innerText = fixedValue;
+}
+
+function fixLimit() {
+    const input = document.getElementById('tryLimit');
+    const value = parseInt(input.value);
+    const fixed = Math.max(1, value || 0);
+
+    input.value = fixed;
+    gameState.limit = fixed;
+    gameState.trysToGo = fixed;
+
+    document.getElementById('toGo').innerText = fixed;
 }
 
 function switchMode() {
@@ -41,61 +54,106 @@ function switchMode() {
 
     const isBox = selectedMode === 'gameBox';
 
-    // przełączanie widoku
     gameBox.classList.toggle('hidden', !isBox);
     gameKeyboard.classList.toggle('hidden', isBox);
 
-    // zmiana nagłówka
     title.innerText = isBox
         ? 'Mode: Box clicking'
         : 'Mode: Keyboard';
 }
 
 
-
+//GAME LOGIC
 function startGame() {
     const tryLimit = document.getElementById('tryLimit')
     const gameMode = document.getElementById('gameMode')
+    const limit = parseInt(tryLimit.value);
 
-    gameState.gameMode = gameMode.value;
-    gameState.limit = parseInt(tryLimit.value);
-    gameState.trysToGo = parseInt(tryLimit.value);
     gameState.isRunning = true;
+    gameState.gameMode = gameMode.value;
+    gameState.limit = limit;
+    gameState.trysToGo = limit;
+    gameState.missedClicksBeforeChange = 0;
+    gameState.actualBestScore = null;
+    gameState.actualWorstScore = null;
+    gameState.actualAvgScore = null;
+    gameState.lastChangeDate = null;
+    gameState.actualGameTimeResults = [];
+    
 
     const startButton = document.getElementById('startButton');
-    startButton.style.display = 'none';
-
     const stopButton = document.getElementById('stopButton');
-    stopButton.style.display ='block';
+    const settingsSection = document.getElementById('settings');
 
-    // renderUI();
+    startButton.classList.add('hidden');
+    stopButton.classList.remove('hidden');
+    settingsSection.classList.add('hidden');
+
+    switchMode();
+    startCountdown();
+
+
     //TODO
 }
 
-// function renderUI() {
-//     const sections = ['settings', 'gameBox', 'gameKeyboard'];
+function startCountdown() {
+    const overlay = document.getElementById('countdownOverlay');
+    const number = document.getElementById('countdownNumber');
 
-//     sections.forEach(id => {
-//         const el = document.getElementById(id);
-//         if (el) {
-//             if (gameState.currentScreens.includes(id)) {
-//                 el.style.display = 'block';
-//             } else {
-//                 el.style.display = 'none';
-//             }
-//         }
-//     });
+    let count = 3;
 
-//     if (gameState.resultsOnScreen) {
-//         const res = document.getElementById(results)
-//         res.style.display = 'block';
-//     }
-// }
+    gameState.phase = 'countdown';
+
+    overlay.classList.remove('hidden');
+    number.innerText = count;
+
+    gameState.countdownId = setInterval(() => {
+        if (!gameState.isRunning) {
+            clearInterval(gameState.countdownId);
+            gameState.countdownId = null;
+            overlay.classList.add('hidden');
+            return;
+        }
+
+        count--;
+
+        if (count > 0) {
+            number.innerText = count;
+        } else {
+            clearInterval(gameState.countdownId);
+            gameState.countdownId = null;
+
+            overlay.classList.add('hidden');
+
+            if (gameState.isRunning) {
+                startRound();
+            }
+        }
+    }, 1000);
+}
+
+function startRound() {
+    console.log('start rundy');
+}
+
+
 
 function stopGame() {
     gameState.isRunning = false;
-    gameState.currentScreens = ['settings', gameState.gameMode, 'results']
-    // renderUI();
+
+    //TODO: obliczanie wyników, aktualizacja statystyk, renderowanie wyników
+    const startButton = document.getElementById('startButton');
+    const stopButton = document.getElementById('stopButton');
+
+    startButton.classList.remove('hidden');
+    stopButton.classList.add('hidden');
+
+    if (gameState.countdownId) {
+    clearInterval(gameState.countdownId);
+    gameState.countdownId = null;
+
+    document.getElementById('countdownOverlay').classList.add('hidden');
+}
 }
 
 function getTrysToGo() {
@@ -103,7 +161,7 @@ function getTrysToGo() {
 }
 
 function handleBoxClick() {
-    const backgroundBox = document.getElementById(cliccker);
+    document.getElementById('gameBox')
     backgroundBox.style.backgroundColor = 'red'
 }
 

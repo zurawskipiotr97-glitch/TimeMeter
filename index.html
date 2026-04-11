@@ -57,20 +57,32 @@
             </section>
 
 
-            <section class="panel" >
+            <section class="panel">
+
                 <h2 id="modeTitle">Mode: Box clicking</h2>
 
                 <p id="tries">Pozostałe zmiany: <span id="toGo">5</span></p>
                 <p id="failedTries">Kliknięcia przed zmianą koloru: <span id="missed">0</span></p>
-                
-                <button class="square" id="gameBox" type="button" onclick="handleBoxClick()">Tu klikaj</button>
-               
-                <div class="square hidden" id="gameKeyboard">
-                    <p id="keyMessage">K</p>
+
+                <div class="gameArea">
+
+                    <button class="square" id="gameBox" type="button" onclick="handleBoxClick()">
+                        Tu klikaj
+                    </button>
+
+                    <div class="square hidden" id="gameKeyboard">
+                        <p id="keyMessage">K</p>
+                    </div>
+
+                    <div id="countdownOverlay" class="countdownOverlay hidden">
+                        <span id="countdownNumber" class="countdownNumber">3</span>
+                    </div>
+
                 </div>
 
                 <button id="startButton" type="button" onclick="startGame()">Start</button>
                 <button class="hidden" id="stopButton" type="button" onclick="stopGame()">Stop</button>
+
             </section>
 
 
@@ -83,7 +95,7 @@
 
                 <p>
                     <label for="tryLimit">Limit prób:</label>
-                    <input type="number" id="tryLimit" value="5" min="1" oninput="updateLimit()">
+                    <input type="number" id="tryLimit" value="5" min="1" step="1" oninput="updateLimit()" onblur="fixLimit()">
                 </p>
                 <p>
                     <label for="gameMode">Tryb gry:</label>
