@@ -51,6 +51,11 @@
                             W trybie <b>"Keyboard"</b> gracz musi nacisnąć odpowiedni klawisz 
                             na klawiaturze, gdy prostokąt zmieni kolor.
                         </p>
+                        <p>
+                            W obu trybach kolor zielony oznacza fazę oczekiwania, 
+                            a czerwony sygnalizuje moment, w którym gracz powinien zareagować.
+                        </p>
+            
                         <p>Gracz ma określoną liczbę prób, aby osiągnąć jak najlepszy czas reakcji.</p>
                     </div>
                 </details>
@@ -114,14 +119,19 @@
 
                 <p style="font-weight: bold" id="resultMessage">Wynik aktualnej gry:</p>
                 <ul id="resultsList">
-                    <li>Najkrótszy czas reakcji: ????? ms</li>
-                    <li>Najdłuższy czas reakcji: ????? ms</li>
-                    <li style="font-weight: bold;">Średni czas reakcji: ????? ms</li>
+                    <li>Najkrótszy czas reakcji: <span id="bestScore">-</span> ms</li>
+                    <li>Najdłuższy czas reakcji: <span id="worstScore">-</span> ms</li>
+                    <li style="font-weight: bold;">Średni czas reakcji: <span id="avgScore">-</span> ms</li>
                 </ul>
 
                 <p style="font-weight: bold" id="BestResultMessage">Twój najlepszy wynik (Średni czas reakcji):</p>
-                <p id="bestResultBox">Click Box: ???? ms</p>
-                <p id="bestResultKeboard">Keyboard: ???? ms</p>
+                <p id="bestResultBox">Click Box: <span id="overallBox">-</span> ms (Niepotrzebnych kliknięć: <span id="overallBoxMissed">-</span>)</p>
+                <p id="bestResultKeboard">Keyboard: <span id="overallKeyboard">-</span> ms (Niepotrzebnych kliknięć: <span id="overallKeyboardMissed">-</span>)</p>
+
+                <p style="font-weight: bold" id="BestResultMessage">Twój najlepszy wynik (Średni czas reakcji, dla najmniejszej liczby niepotrzebnych kliknięć):</p>
+                <p id="bestResultBoxMissedClicks">Click Box: <span id="overallMissedBox">-</span> ms (Niepotrzebnych kliknięć: <span id="overallBoxMissedClicks">-</span>)</p>
+                <p id="bestResultKeboardMissedClicks">Keyboard: <span id="overallMissedKeyboard">-</span> ms (Niepotrzebnych kliknięć: <span id="overallKeyboardMissedClicks">-</span>)</p>
+
 
                 
 

@@ -14,8 +14,15 @@ const gameState = {
     actualAvgScore: null,
 
     boxBestScore: null,
+    boxBestScoreMissed: null,
     keyboardBestScore: null,
+    keyboardBestScoreMissed: null,
 
+    boxBestScoreMissedClicks: null,
+    boxBestScoreMissedClicksClicks: null,
+    keyboardBestScoreMissedClicks: null,
+    keyboardBestScoreMissedClicksClicks: null,
+    
     lastChangeDate: null
     
 }
@@ -86,6 +93,10 @@ function startGame() {
     const stopButton = document.getElementById('stopButton');
     const settingsSection = document.getElementById('settings');
 
+    document.getElementById('toGo').innerText = gameState.trysToGo;
+    document.getElementById('missedBefore').innerText = gameState.missedClicksBeforeChange;
+    document.getElementById('missedTotal').innerText = gameState.missedClicksTotal;
+
     startButton.classList.add('hidden');
     stopButton.classList.remove('hidden');
     settingsSection.classList.add('hidden');
@@ -140,10 +151,8 @@ function startRound() {
     gameState.lastChangeDate = null;
     gameState.missedClicksBeforeChange = 0;
     gameState.timeoutId = null;
-
-    //DEBUG
     const box = document.getElementById('gameBox');
-    box.style.backgroundColor = '#0080ff';
+    box.style.backgroundColor = '#4CAF50';
     
     setTimeout(() => showSignal(), Math.random() * 2000 + 1000);
 }
@@ -202,10 +211,61 @@ function updateStats(reactionTime) {
     const sum = gameState.actualGameTimeResults.reduce((a, b) => a + b, 0);
     gameState.actualAvgScore = sum / gameState.actualGameTimeResults.length;
 
+    renderActualStats();
+
+}
+
+
+
+function renderActualStats() {
+    document.getElementById('bestScore').innerText = gameState.actualBestScore !== null ? gameState.actualBestScore : '-';
+    document.getElementById('worstScore').innerText = gameState.actualWorstScore !== null ? gameState.actualWorstScore : '-';
+    document.getElementById('avgScore').innerText = gameState.actualAvgScore !== null ? gameState.actualAvgScore.toFixed(2) : '-';
+}
+
+function renderStats() {
+    renderActualStats();
+    checkOverallStats();
+    renderOverallStats();
+    }
+
+function checkOverallStats() {
+    if (gameState.gameMode === 'gameBox') {
+        if (gameState.boxBestScore === null || gameState.actualAvgScore < gameState.boxBestScore) {
+            gameState.boxBestScore = gameState.actualAvgScore;
+            gameState.boxBestScoreMissed = gameState.missedClicksTotal;
+        }
+        if (gameState.boxBestScoreMissedClicks === null || gameState.missedClicksTotal < gameState.boxBestScoreMissedClicksClicks || (gameState.missedClicksTotal === gameState.boxBestScoreMissedClicksClicks && gameState.actualAvgScore < gameState.boxBestScoreMissedClicks)) {
+            gameState.boxBestScoreMissedClicks = gameState.actualAvgScore;
+            gameState.boxBestScoreMissedClicksClicks = gameState.missedClicksTotal;
+        }
+
+    }
+    if (gameState.gameMode === 'gameKeyboard') {
+        if (gameState.keyboardBestScore === null || gameState.actualAvgScore < gameState.keyboardBestScore) {
+            gameState.keyboardBestScore = gameState.actualAvgScore;
+            gameState.keyboardBestScoreMissed = gameState.missedClicksTotal;
+        }
+        if (gameState.keyboardBestScoreMissedClicks === null || gameState.missedClicksTotal < gameState.keyboardBestScoreMissedClicksClicks || (gameState.missedClicksTotal === gameState.keyboardBestScoreMissedClicksClicks && gameState.actualAvgScore < gameState.keyboardBestScoreMissedClicks)) {
+            gameState.keyboardBestScoreMissedClicks = gameState.actualAvgScore;
+            gameState.keyboardBestScoreMissedClicksClicks = gameState.missedClicksTotal;
+        }   
+    }
+}
+
+function renderOverallStats() {
+    document.getElementById('overallBox').innerText = gameState.boxBestScore !== null ? gameState.boxBestScore.toFixed(2) : '-';
+    document.getElementById('overallBoxMissed').innerText = gameState.gameMode === 'gameBox' ? gameState.missedClicksTotal : '-';
+    document.getElementById('overallKeyboard').innerText = gameState.keyboardBestScore !== null ? gameState.keyboardBestScore.toFixed(2) : '-';
+    document.getElementById('overallKeyboardMissed').innerText = gameState.gameMode === 'gameKeyboard' ? gameState.missedClicksTotal : '-';
+    document.getElementById('overallMissedBox').innerText = gameState.boxBestScoreMissedClicks !== null ? gameState.boxBestScoreMissedClicks.toFixed(2) : '-';
+    document.getElementById('overallBoxMissedClicks').innerText = gameState.gameMode === 'gameBox' ? gameState.boxBestScoreMissedClicksClicks : '-';
+    document.getElementById('overallMissedKeyboard').innerText = gameState.keyboardBestScoreMissedClicks !== null ? gameState.keyboardBestScoreMissedClicks.toFixed(2) : '-';
+    document.getElementById('overallKeyboardMissedClicks').innerText = gameState.gameMode === 'gameKeyboard' ? gameState.keyboardBestScoreMissedClicksClicks : '-';
 }
 
 function finishGame() {
-
+    stopGame();
 }
 
 function stopGame() {
@@ -231,6 +291,8 @@ function stopGame() {
     kwadraty.forEach(function(kwadrat) {
         kwadrat.style.backgroundColor = '#4CAF50';
     });
+
+    renderStats();
     
 }
 
