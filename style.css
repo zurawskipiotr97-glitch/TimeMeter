@@ -126,3 +126,19 @@ ul {
     cursor: pointer;
 
 }
+
+#settings {
+    display: block;
+}
+
+#gameBox {
+    display: none;
+}
+
+#gameKeyboard {
+    display:none;
+}
+
+#results {
+    display:none;
+}
