@@ -69,10 +69,10 @@
                 <h2>Box clicking</h2>
 
                 <p id="message">Good Luck!</p>
-                <p id="tries">Pozostałe zmiany: <span id="toGo">0</span></p>
-                <p id="failedTries">Kliknięcia przed zmianą koloru: ????</p>
+                <p id="tries">Pozostałe zmiany: <span id="toGoBox">0</span></p>
+                <p id="failedTries">Kliknięcia przed zmianą koloru: <span id="missedBox">0</span></p>
 
-                <button class="square" id="cliccker" type="button" onclick="Click()">Tu klikaj</button>
+                <button class="square" id="cliccker" type="button" onclick="click()">Tu klikaj</button>
                
 
                 <button id="stopButton" type="button" onclick="stopGame()">Stop</button>
@@ -82,8 +82,8 @@
                 <h2>Keyboard</h2>
 
                 <p id="message">Good Luck!</p>
-                <p id="tries">Pozostałe zmiany: <span id="toGo">0</span></p>
-                <p id="failedTries">Kliknięcia przed zmianą koloru: ????</p>
+                <p id="tries">Pozostałe zmiany: <span id="toGoKeyboard">0</span></p>
+                <p id="failedTries">Kliknięcia przed zmianą koloru: <span id="missedKeyboard">0</span></p>
 
                 <div class="square" id="square2">
                     <p id="keyMessage">K</p>
@@ -95,14 +95,14 @@
             <section class="panel" id="results">
                 <h2>Statystyki</h2>
 
-                <p id="resultMessage">Wynik aktualnej gry:</p>
+                <p style="font-weight: bold" id="resultMessage">Wynik aktualnej gry:</p>
                 <ul id="resultsList">
                     <li>Najkrótszy czas reakcji: ????? ms</li>
                     <li>Najdłuższy czas reakcji: ????? ms</li>
                     <li style="font-weight: bold;">Średni czas reakcji: ????? ms</li>
                 </ul>
 
-                <p id="BestResultMessage">Twój najlepszy wynik:</p>
+                <p style="font-weight: bold" id="BestResultMessage">Twój najlepszy wynik (Średni czas reakcji):</p>
                 <p id="bestResultBox">Click Box: ???? ms</p>
                 <p id="bestResultKeboard">Keyboard: ???? ms</p>
 

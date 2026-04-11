@@ -4,8 +4,14 @@ const gameState = {
     gameMode: 'normal',
     limit: 0,
     trysToGo: 0,
-    score: 0,
-    lastTime: 0
+    missedClicksBeforeChange: 0,
+    actualBestScore: null,
+    actualWorstScore: null,
+    actualAvgScore: null,
+    boxBestScore: null,
+    keyboardBestScore: null,
+    lastChangeDate: null,
+    actualGameTimeResults: []
 }
 
 function startGame() {
@@ -18,10 +24,12 @@ function startGame() {
     gameState.isRunning = true;
     gameState.currentScreens = [gameState.gameMode, 'results']
 
-    const scoreElement = document.getElementById('toGo');
-    scoreElement.innerText = gameState.trysToGo;
+    const scoreElementBox = document.getElementById('toGoBox');
+    scoreElementBox.innerText = gameState.trysToGo;
 
-    console.log(`Start: Tryb ${gameState.gameMode}, Limit: ${gameState.limit}`);
+    const scoreElementKeyboard = document.getElementById('toGoKeyboard');
+    scoreElementKeyboard.innerText = gameState.trysToGo;
+
     renderUI();
     //TODO
 }
@@ -49,5 +57,5 @@ function stopGame() {
 
 function getTrysToGo() {
     return gameState.trysToGo;
-
 }
+ 
