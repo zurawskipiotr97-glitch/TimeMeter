@@ -122,6 +122,7 @@ function switchMode() {
         isBox ? 'Mode: Box clicking' : 'Mode: Keyboard';
     
     document.getElementById('wrongTries').classList.toggle('hidden', isBox);
+    document.getElementById('mobileKeyboard').classList.toggle('hidden', isBox);
     
 document.getElementById('mobileKeyboard').innerHTML = '';
 
