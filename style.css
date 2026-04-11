@@ -130,7 +130,7 @@ ul {
     cursor: pointer;
 }
 
-#settings {
+/* #settings {
     display: block;
 }
 
@@ -152,7 +152,7 @@ ul {
 
 #stopButton {
     display:none;
-}
+} */
 
 summary {
     list-style: none;
@@ -164,4 +164,8 @@ summary {
 
 summary:hover {
     background: #e0e0e0;
+}
+
+.hidden {
+    display: none;
 }

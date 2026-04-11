@@ -1,18 +1,54 @@
 const gameState = {
     isRunning: false,
-    resultsOnScreen: false,
     gameMode: null,
     limit: 5,
+
     trysToGo: 5,
     missedClicksBeforeChange: 0,
+    actualGameTimeResults: [],
     actualBestScore: null,
     actualWorstScore: null,
     actualAvgScore: null,
+
     boxBestScore: null,
     keyboardBestScore: null,
-    lastChangeDate: null,
-    actualGameTimeResults: []
+
+    lastChangeDate: null
+    
 }
+
+function updateLimit() {
+    const tryLimitInput = document.getElementById('tryLimit');
+
+    const value = parseInt(tryLimitInput.value);
+    
+    gameState.limit = isNaN(value) ? 0 : value;
+    gameState.trysToGo = gameState.limit;
+
+    const scoreElement = document.getElementById('toGo');
+    if (scoreElement) {
+        scoreElement.innerText = gameState.trysToGo;
+    }
+}
+
+function switchMode() {
+    const selectedMode = document.getElementById('gameMode').value;
+    gameState.gameMode = selectedMode;
+
+    const modes = ['gameBox', 'gameKeyboard'];
+
+    modes.forEach(id => {
+        const el = document.getElementById(id);
+
+        if (id === selectedMode) {
+            el.classList.remove('hidden');
+        } else {
+            el.classList.add('hidden');
+        }
+    });
+}
+
+
 
 function startGame() {
     const tryLimit = document.getElementById('tryLimit')
@@ -69,26 +105,6 @@ function handleBoxClick() {
 }
 
 
-//REPAIR !!!!!!
-function switchMode() {
-    const selectedMode = document.getElementById('gameMode').value;
-    gameState.gameMode = selectedMode
-    const showMode = document.getElementById(selectedMode)
-    showMode.style.display = "block";
-}
 
-function updateLimit() {
-    const tryLimitInput = document.getElementById('tryLimit');
-
-    const val = parseInt(tryLimitInput.value);
-    
-    gameState.limit = isNaN(val) ? 0 : val;
-    gameState.trysToGo = gameState.limit;
-
-    const scoreElement = document.getElementById('toGo');
-    if (scoreElement) {
-        scoreElement.innerText = gameState.trysToGo;
-    }
-}
 
 
