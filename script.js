@@ -74,6 +74,7 @@ function startGame() {
     gameState.limit = limit;
     gameState.trysToGo = limit;
     gameState.missedClicksBeforeChange = 0;
+    gameState.missedClicksTotal = 0;
     gameState.actualBestScore = null;
     gameState.actualWorstScore = null;
     gameState.actualAvgScore = null;
@@ -133,13 +134,83 @@ function startCountdown() {
 }
 
 function startRound() {
-    console.log('start rundy');
+    if (!gameState.isRunning) return;
+    if (!gameState.trysToGo || gameState.trysToGo <= 0) return finishGame();
+    gameState.phase = 'waiting';
+    gameState.lastChangeDate = null;
+    gameState.missedClicksBeforeChange = 0;
+    gameState.timeoutId = null;
+
+    //DEBUG
+    const box = document.getElementById('gameBox');
+    box.style.backgroundColor = '#0080ff';
+    
+    setTimeout(() => showSignal(), Math.random() * 2000 + 1000);
 }
 
+function showSignal() {
+    if (!gameState.isRunning) return;
+    const now = new Date();
+    gameState.phase = 'ready';
+    gameState.timeoutId = now.getTime();
+    const box = document.getElementById('gameBox');
+    box.style.backgroundColor = '#FF0000';
+    gameState.trysToGo--;
+    document.getElementById('toGo').innerText = gameState.trysToGo;
 
+
+
+}
+
+function handleBoxClick() {
+    if (!gameState.isRunning) return;
+    if (gameState.gameMode !== 'gameBox') return;
+    handleReaciton();
+    
+}
+    
+
+
+function handleKeyPress(event) {
+
+}
+
+function handleReaciton() {
+    if (gameState.phase === 'waiting') {
+        gameState.missedClicksBeforeChange++;
+        gameState.missedClicksTotal++;
+        document.getElementById('missedBefore').innerText = gameState.missedClicksBeforeChange;
+        document.getElementById('missedTotal').innerText = gameState.missedClicksTotal;
+    } else if (gameState.phase === 'ready') {
+        const now = new Date();
+        const reactionTime = now.getTime() - gameState.timeoutId; 
+        gameState.actualGameTimeResults.push(reactionTime);
+        updateStats(reactionTime);
+        startRound();
+    }
+}
+
+function updateStats(reactionTime) {
+    const results = document.getElementById('results');
+    results.classList.remove('hidden');
+    if (gameState.actualBestScore === null || reactionTime < gameState.actualBestScore) {
+            gameState.actualBestScore = reactionTime;
+        }
+    if (gameState.actualWorstScore === null || reactionTime > gameState.actualWorstScore) {
+            gameState.actualWorstScore = reactionTime;
+        }
+    const sum = gameState.actualGameTimeResults.reduce((a, b) => a + b, 0);
+    gameState.actualAvgScore = sum / gameState.actualGameTimeResults.length;
+
+}
+
+function finishGame() {
+
+}
 
 function stopGame() {
     gameState.isRunning = false;
+    gameState.phase = 'idle';
 
     //TODO: obliczanie wyników, aktualizacja statystyk, renderowanie wyników
     const startButton = document.getElementById('startButton');
@@ -151,20 +222,20 @@ function stopGame() {
     if (gameState.countdownId) {
     clearInterval(gameState.countdownId);
     gameState.countdownId = null;
+    }
 
     document.getElementById('countdownOverlay').classList.add('hidden');
     document.getElementById('settings').classList.remove('hidden');
-}
+
+    const kwadraty = document.querySelectorAll('.square');
+    kwadraty.forEach(function(kwadrat) {
+        kwadrat.style.backgroundColor = '#4CAF50';
+    });
+    
 }
 
-function getTrysToGo() {
-    return gameState.trysToGo;
-}
 
-function handleBoxClick() {
-    document.getElementById('gameBox')
-    backgroundBox.style.backgroundColor = 'red'
-}
+
 
 
 
