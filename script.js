@@ -109,9 +109,6 @@ function startGame() {
     document.getElementById('settings').classList.add('hidden');
     document.getElementById('currentGameStats').classList.add('hidden');
 
-    const input = document.getElementById('mobileInput');
-    input.focus();
-
     switchMode();
     startCountdown();
 }
@@ -144,8 +141,6 @@ function startCountdown() {
 function startRound() {
     if (!gameState.isRunning) return;
     if (gameState.trysToGo <= 0) return finishGame();
-
-    keepFocus();
 
     gameState.phase = 'waiting';
     gameState.missedClicksBeforeChange = 0;
@@ -195,31 +190,6 @@ document.addEventListener('keydown', (e) => {
         gameState.missedClicksTotal++;
         document.getElementById('wrongKey').innerText = gameState.wrongClicks;
         document.getElementById('missedTotal').innerText = gameState.missedClicksTotal;
-    }
-});
-
-function keepFocus() {
-    const input = document.getElementById('mobileInput');
-    if (document.activeElement !== input) {
-        input.focus();
-    }
-}
-
-document.getElementById('mobileInput').addEventListener('input', (e) => {
-    const value = e.target.value.slice(-1); // ostatni znak
-    e.target.value = ''; // czyścimy
-
-    if (!gameState.isRunning || gameState.gameMode !== 'gameKeyboard') return;
-
-    if (gameState.phase === 'waiting') {
-        handleReaction();
-    }
-
-    if (value.toLowerCase() === gameState.keyValue.toLowerCase() && gameState.phase === 'ready') {
-        handleReaction();
-    } else if (gameState.phase === 'ready') {
-        gameState.wrongClicks++;
-        gameState.missedClicksTotal++;
     }
 });
 
