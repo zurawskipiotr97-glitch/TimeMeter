@@ -37,6 +37,53 @@ const gameState = {
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+function isMobile() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+}
+
+function generateMobileKeyboard(correctKey) {
+    const container = document.getElementById('mobileKeyboard');
+    container.innerHTML = '';
+
+    if (!isMobile()) return; // tylko na telefonie
+
+    const letters = new Set();
+    letters.add(correctKey);
+
+    while (letters.size < 6) {
+        letters.add(alphabet[Math.floor(Math.random() * alphabet.length)]);
+    }
+
+    [...letters].sort().forEach(letter => {
+        const btn = document.createElement('button');
+        btn.innerText = letter;
+        btn.classList.add('mobileKey');
+
+        btn.onclick = () => handleMobileKey(letter);
+
+        container.appendChild(btn);
+    });
+}
+
+function handleMobileKey(letter) {
+    if (!gameState.isRunning || gameState.gameMode !== 'gameKeyboard') return;
+
+    if (gameState.phase === 'waiting') {
+        handleReaction();
+        return;
+    }
+
+    if (letter.toLowerCase() === gameState.keyValue.toLowerCase() && gameState.phase === 'ready') {
+        handleReaction();
+    } else if (gameState.phase === 'ready') {
+        gameState.wrongClicks++;
+        gameState.missedClicksTotal++;
+
+        document.getElementById('wrongKey').innerText = gameState.wrongClicks;
+        document.getElementById('missedTotal').innerText = gameState.missedClicksTotal;
+    }
+}
+
 // SETTINGS
 
 function updateLimit() {
@@ -76,6 +123,8 @@ function switchMode() {
     
     document.getElementById('wrongTries').classList.toggle('hidden', isBox);
     
+document.getElementById('mobileKeyboard').innerHTML = '';
+
     updateLimit();
 }
 
@@ -166,9 +215,13 @@ function showSignal() {
         document.getElementById('keyValue').innerText = gameState.keyValue;
     }
 
+    if (gameState.gameMode === 'gameKeyboard') {
+    generateMobileKeyboard(gameState.keyValue);
+
     gameState.trysToGo--;
     document.getElementById('toGo').innerText = gameState.trysToGo;
     gameState.timeoutId = Date.now(); 
+    }
 }
 
 // INPUT
