@@ -122,7 +122,6 @@ function switchMode() {
         isBox ? 'Mode: Box clicking' : 'Mode: Keyboard';
     
     document.getElementById('wrongTries').classList.toggle('hidden', isBox);
-    document.getElementById('mobileKeyboard').classList.toggle('hidden', isBox);
     
 document.getElementById('mobileKeyboard').innerHTML = '';
 
@@ -214,16 +213,14 @@ function showSignal() {
     if (gameState.gameMode === 'gameKeyboard') {
         gameState.keyValue = alphabet[Math.floor(Math.random() * alphabet.length)];
         document.getElementById('keyValue').innerText = gameState.keyValue;
+        generateMobileKeyboard(gameState.keyValue);
     }
-
-    if (gameState.gameMode === 'gameKeyboard') {
-    generateMobileKeyboard(gameState.keyValue);
 
     gameState.trysToGo--;
     document.getElementById('toGo').innerText = gameState.trysToGo;
     gameState.timeoutId = Date.now(); 
-    }
 }
+
 
 // INPUT
 
