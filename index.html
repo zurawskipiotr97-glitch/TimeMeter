@@ -119,13 +119,14 @@
 
             <section class="panel hidden" id="results">
                 <h2>Statystyki</h2>
-
-                <p style="font-weight: bold" id="resultMessage">Wynik aktualnej gry:</p>
-                <ul id="resultsList">
-                    <li>Najkrótszy czas reakcji: <span id="bestScore">-</span> ms</li>
-                    <li>Najdłuższy czas reakcji: <span id="worstScore">-</span> ms</li>
-                    <li style="font-weight: bold;">Średni czas reakcji: <span id="avgScore">-</span> ms</li>
-                </ul>
+                <div id="currentGameStats" class="hidden"> 
+                    <p style="font-weight: bold; font-size: 1.2rem;" id="resultMessage">Wynik aktualnej gry:</p>
+                    <ul id="resultsList" style="font-size: 1.2rem">
+                        <li>Najkrótszy czas reakcji: <span id="bestScore">-</span> ms</li>
+                        <li>Najdłuższy czas reakcji: <span id="worstScore">-</span> ms</li>
+                        <li style="font-weight: bold;">Średni czas reakcji: <span id="avgScore">-</span> ms</li>
+                    </ul>
+                </div>
 
                 <p style="font-weight: bold" id="BestResultMessage">Twój najlepszy wynik (Średni czas reakcji):</p>
                 <p id="bestResultBox">Click Box: <span id="overallBox">-</span> ms (Niepotrzebnych kliknięć: <span id="overallBoxMissed">-</span>)</p>

@@ -107,6 +107,7 @@ function startGame() {
     document.getElementById('startButton').classList.add('hidden');
     document.getElementById('stopButton').classList.remove('hidden');
     document.getElementById('settings').classList.add('hidden');
+    document.getElementById('currentGameStats').classList.add('hidden');
 
     switchMode();
     startCountdown();
@@ -216,6 +217,7 @@ function handleReaction() {
 
 function updateStats(reactionTime) {
     document.getElementById('results').classList.remove('hidden');
+    document.getElementById('currentGameStats').classList.remove('hidden');
 
     if (gameState.actualBestScore === null || reactionTime < gameState.actualBestScore) {
         gameState.actualBestScore = reactionTime;
