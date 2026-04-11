@@ -1,6 +1,5 @@
 const gameState = {
     isRunning: false,
-    currentScreens: ['settings'],
     resultsOnScreen: false,
     gameMode: null,
     limit: 5,
@@ -23,56 +22,73 @@ function startGame() {
     gameState.limit = parseInt(tryLimit.value);
     gameState.trysToGo = parseInt(tryLimit.value);
     gameState.isRunning = true;
-    gameState.currentScreens = [gameState.gameMode, 'results']
 
-    const scoreElementBox = document.getElementById('toGoBox');
-    scoreElementBox.innerText = gameState.trysToGo;
+    const startButton = document.getElementById('startButton');
+    startButton.style.display = 'none';
 
-    const scoreElementKeyboard = document.getElementById('toGoKeyboard');
-    scoreElementKeyboard.innerText = gameState.trysToGo;
+    const stopButton = document.getElementById('stopButton');
+    stopButton.style.display ='block';
 
-    renderUI();
+    // renderUI();
     //TODO
 }
 
-function renderUI() {
-    const sections = ['settings', 'gameBox', 'gameKeyboard'];
+// function renderUI() {
+//     const sections = ['settings', 'gameBox', 'gameKeyboard'];
 
-    sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            if (gameState.currentScreens.includes(id)) {
-                el.style.display = 'block';
-            } else {
-                el.style.display = 'none';
-            }
-        }
-    });
+//     sections.forEach(id => {
+//         const el = document.getElementById(id);
+//         if (el) {
+//             if (gameState.currentScreens.includes(id)) {
+//                 el.style.display = 'block';
+//             } else {
+//                 el.style.display = 'none';
+//             }
+//         }
+//     });
 
-    if (gameState.resultsOnScreen) {
-        const res = document.getElementById(results)
-        res.style.display = 'block';
-    }
-}
+//     if (gameState.resultsOnScreen) {
+//         const res = document.getElementById(results)
+//         res.style.display = 'block';
+//     }
+// }
 
 function stopGame() {
     gameState.isRunning = false;
     gameState.currentScreens = ['settings', gameState.gameMode, 'results']
-    renderUI();
+    // renderUI();
 }
 
 function getTrysToGo() {
     return gameState.trysToGo;
 }
 
-function click() {
+function handleBoxClick() {
     const backgroundBox = document.getElementById(cliccker);
     backgroundBox.style.backgroundColor = 'red'
 }
 
+
+//REPAIR !!!!!!
 function switchMode() {
     const selectedMode = document.getElementById('gameMode').value;
     gameState.gameMode = selectedMode
-    gameState.currentScreens = ['settings', selectedMode, 'results'];
-    renderUI();
+    const showMode = document.getElementById(selectedMode)
+    showMode.style.display = "block";
 }
+
+function updateLimit() {
+    const tryLimitInput = document.getElementById('tryLimit');
+
+    const val = parseInt(tryLimitInput.value);
+    
+    gameState.limit = isNaN(val) ? 0 : val;
+    gameState.trysToGo = gameState.limit;
+
+    const scoreElement = document.getElementById('toGo');
+    if (scoreElement) {
+        scoreElement.innerText = gameState.trysToGo;
+    }
+}
+
+

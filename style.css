@@ -146,6 +146,14 @@ ul {
     display:none;
 }
 
+#startButton {
+    display:block;
+}
+
+#stopButton {
+    display:none;
+}
+
 summary {
     list-style: none;
     background: #f0f0f0;

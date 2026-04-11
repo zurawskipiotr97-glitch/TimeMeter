@@ -51,13 +51,34 @@
                 </details>
             </section>
 
-            
-            <section class="panel" id="settings">
+
+            <section class="panel" >
+                <h2>Box clicking</h2>
+
+                <p id="tries">Pozostałe zmiany: <span id="toGo">0</span></p>
+                <p id="failedTries">Kliknięcia przed zmianą koloru: <span id="missed">0</span></p>
+                
+                <button class="square" id="gameBox" type="button" onclick="handleBoxClick()">Tu klikaj</button>
+               
+                <div class="square" id="gameKeyboard">
+                    <p id="keyMessage">K</p>
+                </div>
+
+                <button id="startButton" type="button" onclick="startGame()">Start</button>
+                <button id="stopButton" type="button" onclick="stopGame()">Stop</button>
+            </section>
+
+
+             <section class="settings" id="settings">
+                <details>
+                    <summary style="cursor: pointer; font-weight: bold; font-size: 1.2rem; padding: 10px 0;">
+                        Opcje (Kliknij, aby rozwinąć)
+                    </summary>
                 <h2>Ustawienia gry</h2>
 
                 <p>
                     <label for="tryLimit">Limit prób:</label>
-                    <input type="number" id="tryLimit" value="5" min="1">
+                    <input type="number" id="tryLimit" value="5" min="1" oninput="updateLimit()">
                 </p>
                 <p>
                     <label for="gameMode">Tryb gry:</label>
@@ -67,36 +88,7 @@
                     </select>
                 </p>
 
-                <button id="startButton" type="button" onclick="startGame()">Start</button>
-            </section>
-
-
-            <section class="panel" id="gameBox">
-                <h2>Box clicking</h2>
-
-                <p id="message">Good Luck!</p>
-                <p id="tries">Pozostałe zmiany: <span id="toGoBox">0</span></p>
-                <p id="failedTries">Kliknięcia przed zmianą koloru: <span id="missedBox">0</span></p>
-                
-                <button class="square" id="cliccker" type="button" onclick="click()">Tu klikaj</button>
-               
-
-                <button id="stopButton" type="button" onclick="stopGame()">Stop</button>
-            </section>
-
-
-            <section class="panel" id="gameKeyboard">
-                <h2>Keyboard</h2>
-
-                <p id="message">Good Luck!</p>
-                <p id="tries">Pozostałe zmiany: <span id="toGoKeyboard">0</span></p>
-                <p id="failedTries">Kliknięcia przed zmianą koloru: <span id="missedKeyboard">0</span></p>
-
-                <div class="square" id="square2">
-                    <p id="keyMessage">K</p>
-                </div>
-
-                <button id="stopButton" type="button" onclick="stopGame()">Stop</button>
+                </details>   
             </section>
 
 
