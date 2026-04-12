@@ -123,7 +123,12 @@ function switchMode() {
     
     document.getElementById('wrongTries').classList.toggle('hidden', isBox);
     
-document.getElementById('mobileKeyboard').innerHTML = '';
+    document.getElementById('mobileKeyboard').innerHTML = '';
+
+    document.getElementById('keyMessage').classList.remove('hidden');
+    document.getElementById('boxMessage').innerText = 'Tu klikaj';
+    document.getElementById('boxMessage2').classList.add('hidden');
+
 
     updateLimit();
 }
@@ -152,11 +157,15 @@ function startGame() {
     document.getElementById('missedTotal').innerText = 0;
     document.getElementById('wrongKey').innerText = 0;
     document.getElementById('keyValue').innerText = '-';
+    document.getElementById('boxMessage').innerText = 'Tu klikaj';
 
     document.getElementById('startButton').classList.add('hidden');
     document.getElementById('stopButton').classList.remove('hidden');
     document.getElementById('settings').classList.add('hidden');
     document.getElementById('currentGameStats').classList.add('hidden');
+    document.getElementById('keyMessage').classList.remove('hidden');
+    document.getElementById('boxMessage2').classList.add('hidden');
+
 
     switchMode();
     startCountdown();
@@ -388,6 +397,10 @@ function stopGame() {
     element.classList.remove('hidden');
 
     document.getElementById('countdownOverlay').classList.add('hidden');
+    
+    document.getElementById('boxMessage').innerText = 'To już koniec!\nPrzynajmniej w tej rundzie 😉';
+    document.getElementById('boxMessage2').classList.remove('hidden');
+    document.getElementById('keyMessage').classList.add('hidden');
 
     document.querySelectorAll('.square').forEach(el => {
         el.style.backgroundColor = '#4CAF50';

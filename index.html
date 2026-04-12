@@ -82,11 +82,12 @@
                 <div class="gameArea">
 
                     <button class="square" id="gameBox" type="button" onclick="handleBoxClick()">
-                        Tu klikaj
+                        <span id="boxMessage">Tu klikaj</span>
                     </button>
 
                     <div class="square hidden" id="gameKeyboard">
                         <div id="keyMessage"><span id="keyValue">-</span></div>
+                        <span id="boxMessage2" class="hidden">To już koniec!<br>Przynajmniej w tej rundzie 😉</span>
                     </div>
 
                     <div id="mobileKeyboard" class="mobileKeyboard hidden"></div>
