@@ -45,7 +45,7 @@ function generateMobileKeyboard(correctKey) {
     const container = document.getElementById('mobileKeyboard');
     container.innerHTML = '';
 
-    // if (!isMobile()) return;
+    if (!isMobile()) return;
 
     const letters = new Set();
     letters.add(correctKey);
@@ -124,6 +124,7 @@ function switchMode() {
     document.getElementById('wrongTries').classList.toggle('hidden', isBox);
     
     document.getElementById('mobileKeyboard').innerHTML = '';
+    document.getElementById('mobileKeyboard').classList.toggle('hidden', isBox);
 
     document.getElementById('keyMessage').classList.remove('hidden');
     document.getElementById('boxMessage').innerText = 'Tu klikaj';
