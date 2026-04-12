@@ -45,7 +45,7 @@ function generateMobileKeyboard(correctKey) {
     const container = document.getElementById('mobileKeyboard');
     container.innerHTML = '';
 
-    if (!isMobile()) return; // tylko na telefonie
+    // if (!isMobile()) return;
 
     const letters = new Set();
     letters.add(correctKey);
